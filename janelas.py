@@ -5,19 +5,14 @@ def show_frame(frame):
     frame.tkraise()
 
 
-def janela_padrao(janela, id_janela):
-    global janela_padrao_titulo
-    janela_padrao_titulo = Frame(janela, bg='red')
+def janela_padrao(janela_parent, frame_painel, id_janela):
+    janela_padrao_titulo = Frame(janela_parent, bg='red')
+    id = Label(janela_parent, text=f'{id_janela}', bg='red')
     janela_padrao_titulo.grid(row=0, column=0, columnspan=4, sticky='nsew')
-    id = Label(janela, text=f'{id_janela}', bg='red')
     id.grid(row=0, column=0, columnspan=4, sticky='nsew')
-
-    global janela_padrao_menu
-    janela_padrao_menu = Frame(janela, bg='grey')
+    janela_padrao_menu = Frame(janela_parent, bg='grey')
     janela_padrao_menu.grid(row=1, rowspan=10, column=0, sticky='nsew')
-
-    global janela_padrao_painel
-    janela_padrao_painel = Frame(janela, bg='white')
+    frame_painel = frame_painel
 
 
 
@@ -46,23 +41,33 @@ def botoes_menu(janela):
         janela, text='Jurisprudência', command=lambda: show_frame(janela_jurisprudencia))
     botao_jurisprudencia.grid(row=7, column=0, sticky='nsew')
 
-
 janela = Tk()
 
 janela.state('zoomed')
 janela.rowconfigure(0, weight=1)
 janela.columnconfigure(0, weight=1)
 
+#====================== Criação dos frames
 janela_home = Frame(janela)
+painel_home = Frame(janela_home)
 janela_gerador = Frame(janela)
+painel_gerador = Frame(janela_gerador)
 janela_gerador_documentos = Frame(janela)
+painel_gerador_documentos = Frame(janela_gerador_documentos)
 janela_gerador_documentos_opcoes = Frame(janela)
+painel_gerador_documentos_opcoes = Frame(janela_gerador_documentos_opcoes)
 janela_gerador_documentos_form = Frame(janela)
+painel_gerador_documentos_form = Frame(janela_gerador_documentos_form)
 janela_acompanhamentoprocessual = Frame(janela)
+painel_acompanhamentoprocessual = Frame(janela_acompanhamentoprocessual)
 janela_diariooficial = Frame(janela)
+painel_diariooficial = Frame(janela_diariooficial)
 janela_jurimetria = Frame(janela)
+painel_jurimetria = Frame(janela_jurimetria)
 janela_jurisprudencia = Frame(janela)
+painel_jurisprudencia = Frame(janela_jurisprudencia)
 
+#======================= Configuração das janelas padrão
 for frame in (janela_home, janela_gerador, 
               janela_gerador_documentos, 
               janela_gerador_documentos_opcoes, 
@@ -76,40 +81,49 @@ for frame in (janela_home, janela_gerador,
                        weight=1, uniform='a')
     frame.grid(row=0, column=0, sticky='nsew')
 
+#=========================== Configuração painéis
+for frame in (painel_home, painel_gerador):
+    frame.columnconfigure((0, 1), weight=1, uniform='a')
+    frame.rowconfigure((0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+                       weight=1, uniform='a')
+    frame.grid(row=1, column=1, rowspan=10, columnspan=3, sticky='nsew')
 # ========================== Home
-janela_padrao(janela_home, 'início')
+janela_padrao(janela_home, painel_home, 'início')
 botoes_menu(janela_home)
 
 # ========================== Gerador
-janela_padrao(janela_gerador, 'gerador')
+janela_padrao(janela_gerador, painel_gerador, 'Gerador')
 botoes_menu(janela_gerador)
 
+botao_proximo_gerador = Button(painel_gerador, text='Próximo')
+botao_proximo_gerador.grid(row=10, column=1, sticky='e', padx=30)
+
 # ========================== Gerador-documentos
-janela_padrao(janela_gerador_documentos, 'Escolha o(s) documento(s)')
+janela_padrao(janela_gerador_documentos, painel_gerador_documentos, 'Escolha o(s) documento(s)')
 botoes_menu(janela_gerador_documentos)
 
 # ========================== Gerador-documentos-opções
-janela_padrao(janela_gerador_documentos_opcoes, 'Opções')
+janela_padrao(janela_gerador_documentos_opcoes, painel_gerador_documentos_opcoes, 'Opções')
 botoes_menu(janela_gerador_documentos_opcoes)
 
 # ========================== Gerador-documentos-formulário
-janela_padrao(janela_gerador_documentos_form, 'Preencha o formulário abaixo')
+janela_padrao(janela_gerador_documentos_form, painel_gerador_documentos_form, 'Preencha o formulário abaixo')
 botoes_menu(janela_gerador_documentos_form)
 
 # ========================== Acompanhamento Processual
-janela_padrao(janela_acompanhamentoprocessual, 'Movimentações Processuais')
+janela_padrao(janela_acompanhamentoprocessual, painel_acompanhamentoprocessual, 'Movimentações Processuais')
 botoes_menu(janela_acompanhamentoprocessual)
 
 # ========================== Diário Oficial
-janela_padrao(janela_diariooficial, 'Publicações')
+janela_padrao(janela_diariooficial, painel_diariooficial, 'Publicações')
 botoes_menu(janela_diariooficial)
 
 # ========================== Jurimetria
-janela_padrao(janela_jurimetria, 'Jurimetria')
+janela_padrao(janela_jurimetria, painel_jurimetria,'Jurimetria')
 botoes_menu(janela_jurimetria)
 
 # ========================== Jurisprudência
-janela_padrao(janela_jurisprudencia, 'Pesquisa de jurisprudência')
+janela_padrao(janela_jurisprudencia, painel_jurisprudencia, 'Pesquisa de jurisprudência')
 botoes_menu(janela_jurisprudencia)
 
 show_frame(janela_home)
