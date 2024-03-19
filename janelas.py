@@ -6,17 +6,19 @@ def show_frame(frame):
 
 
 def janela_padrao(janela, id_janela):
+    global janela_padrao_titulo
     janela_padrao_titulo = Frame(janela, bg='red')
     janela_padrao_titulo.grid(row=0, column=0, columnspan=4, sticky='nsew')
     id = Label(janela, text=f'{id_janela}', bg='red')
     id.grid(row=0, column=0, columnspan=4, sticky='nsew')
 
+    global janela_padrao_menu
     janela_padrao_menu = Frame(janela, bg='grey')
     janela_padrao_menu.grid(row=1, rowspan=10, column=0, sticky='nsew')
 
+    global janela_padrao_painel
     janela_padrao_painel = Frame(janela, bg='white')
-    janela_padrao_painel.grid(
-        row=1, rowspan=10, column=1, columnspan=3, sticky='nsew')
+
 
 
 def botoes_menu(janela):
@@ -61,7 +63,14 @@ janela_diariooficial = Frame(janela)
 janela_jurimetria = Frame(janela)
 janela_jurisprudencia = Frame(janela)
 
-for frame in (janela_home, janela_gerador, janela_gerador_documentos, janela_gerador_documentos_opcoes, janela_gerador_documentos_form):
+for frame in (janela_home, janela_gerador, 
+              janela_gerador_documentos, 
+              janela_gerador_documentos_opcoes, 
+              janela_gerador_documentos_form, 
+              janela_acompanhamentoprocessual, 
+              janela_diariooficial, 
+              janela_jurimetria, 
+              janela_jurisprudencia):
     frame.columnconfigure((0, 1, 2, 3), weight=1, uniform='a')
     frame.rowconfigure((0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
                        weight=1, uniform='a')
@@ -74,6 +83,9 @@ botoes_menu(janela_home)
 # ========================== Gerador
 janela_padrao(janela_gerador, 'gerador')
 botoes_menu(janela_gerador)
+
+for janela_padrao_painel in janela_padrao(janela_gerador, 'gerador'):
+    janela_padrao_painel.grid(row=1, rowspan=10, column=1, columnspan=3, sticky='nsew')
 
 # ========================== Gerador-documentos
 janela_padrao(janela_gerador_documentos, 'Escolha o(s) documento(s)')
