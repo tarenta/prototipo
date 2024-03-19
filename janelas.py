@@ -41,6 +41,15 @@ def botoes_menu(janela):
         janela, text='Jurisprudência', command=lambda: show_frame(janela_jurisprudencia))
     botao_jurisprudencia.grid(row=7, column=0, sticky='nsew')
 
+def botao_proximo(nome, parent, destino):
+    nome = Button(parent, text='Próximo', command=lambda: show_frame(destino))
+    nome.grid(row=10, column=1, sticky='e')
+    nome = nome
+
+def botao_voltar(nome, parent, destino):
+    nome = Button(parent, text='Voltar', command=lambda: show_frame(destino))
+    nome.grid(row=10, column=0, sticky='w')
+
 janela = Tk()
 
 janela.state('zoomed')
@@ -87,6 +96,15 @@ for frame in (painel_home, painel_gerador, painel_gerador_documentos, painel_ger
     frame.rowconfigure((0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
                        weight=1, uniform='a')
     frame.grid(row=1, column=1, rowspan=10, columnspan=3, sticky='nsew')
+
+#========================== Criando botões das funções
+botao_proximo_gerador = ''
+botao_proximo_gerador_documentos = ''
+botao_proximo_gerador_documentos_opcoes = ''
+botao_voltar_gerador_documentos = ''
+botao_voltar_gerador_documentos_opcoes = ''
+botao_voltar_gerador_documentos_form = ''
+
 # ========================== Home
 janela_padrao(janela_home, painel_home, 'início')
 botoes_menu(janela_home)
@@ -94,36 +112,24 @@ botoes_menu(janela_home)
 # ========================== Gerador
 janela_padrao(janela_gerador, painel_gerador, 'Gerador')
 botoes_menu(janela_gerador)
-
-botao_proximo_gerador = Button(painel_gerador, text='Próximo', command=lambda: show_frame(janela_gerador_documentos))
-botao_proximo_gerador.grid(row=10, column=1, sticky='e')
+botao_proximo(botao_proximo_gerador, painel_gerador, janela_gerador_documentos)
 
 # ========================== Gerador-documentos
 janela_padrao(janela_gerador_documentos, painel_gerador_documentos, 'Escolha o(s) documento(s)')
 botoes_menu(janela_gerador_documentos)
-
-botao_proximo_gerador_documentos = Button(painel_gerador_documentos, text='Próximo', command=lambda: show_frame(janela_gerador_documentos_opcoes))
-botao_proximo_gerador_documentos.grid(row=10, column=1, sticky='e')
-
-botao_voltar_gerador_documentos = Button(painel_gerador_documentos, text='Voltar', command=lambda: show_frame(janela_gerador))
-botao_voltar_gerador_documentos.grid(row=10, column=0, sticky='w')
+botao_proximo(botao_proximo_gerador_documentos, painel_gerador_documentos, janela_gerador_documentos_opcoes)
+botao_voltar(botao_voltar_gerador_documentos, painel_gerador_documentos, janela_gerador)
 
 # ========================== Gerador-documentos-opções
 janela_padrao(janela_gerador_documentos_opcoes, painel_gerador_documentos_opcoes, 'Opções')
 botoes_menu(janela_gerador_documentos_opcoes)
-
-botao_proximo_gerador_documentos_opcoes = Button(painel_gerador_documentos_opcoes, text='Próximo', command=lambda: show_frame(janela_gerador_documentos_form))
-botao_proximo_gerador_documentos_opcoes.grid(row=10, column=1, sticky='e')
-
-botao_voltar_gerador_documentos_opcoes = Button(painel_gerador_documentos_opcoes, text='Voltar', command=lambda: show_frame(janela_gerador_documentos))
-botao_voltar_gerador_documentos_opcoes.grid(row=10, column=0, sticky='w')
+botao_proximo(botao_proximo_gerador_documentos_opcoes, painel_gerador_documentos_opcoes, janela_gerador_documentos_form)
+botao_voltar(botao_proximo_gerador_documentos_opcoes, painel_gerador_documentos_opcoes, janela_gerador_documentos)
 
 # ========================== Gerador-documentos-formulário
 janela_padrao(janela_gerador_documentos_form, painel_gerador_documentos_form, 'Preencha o formulário abaixo')
 botoes_menu(janela_gerador_documentos_form)
-
-botao_voltar_gerador_documentos_form = Button(painel_gerador_documentos_form, text='Voltar', command=lambda: show_frame(janela_gerador_documentos_opcoes))
-botao_voltar_gerador_documentos_form.grid(row=10, column=0, sticky='w')
+botao_voltar(botao_voltar_gerador_documentos_form, painel_gerador_documentos_form, janela_gerador_documentos_opcoes)
 
 # ========================== Acompanhamento Processual
 janela_padrao(janela_acompanhamentoprocessual, painel_acompanhamentoprocessual, 'Movimentações Processuais')
