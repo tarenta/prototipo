@@ -84,9 +84,6 @@ botoes_menu(janela_home)
 janela_padrao(janela_gerador, 'gerador')
 botoes_menu(janela_gerador)
 
-for janela_padrao_painel in janela_padrao(janela_gerador, 'gerador'):
-    janela_padrao_painel.grid(row=1, rowspan=10, column=1, columnspan=3, sticky='nsew')
-
 # ========================== Gerador-documentos
 janela_padrao(janela_gerador_documentos, 'Escolha o(s) documento(s)')
 botoes_menu(janela_gerador_documentos)
