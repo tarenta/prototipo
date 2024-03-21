@@ -23,10 +23,11 @@ def menu_padrao(frame, parent):
 
 
 def painel_padrao(frame, parent):
-    frame = Frame(parent)
-    frame.columnconfigure(0, weight=1, uniform='a')
+    frame = Frame(parent, bg='yellow')
+    frame.columnconfigure((0, 1, 2, 3, 4, 5, 6, 7, 8, 9), weight=1, uniform='a')
     frame.rowconfigure((0, 1, 2, 3, 4, 5, 6, 7, 8, 9), weight=1, uniform='a')
     frame.grid(row=1, column=1, sticky='nsew')
+    return frame
 
 
 def botoes_menu(parent):
@@ -57,8 +58,8 @@ def botoes_menu(parent):
 
 def botao_proximo(nome, parent, destino):
     nome = Button(parent, text='Próximo', command=lambda: show_frame(destino))
-    nome.grid(row=10, column=1, sticky='e')
-    nome = nome
+    nome.grid(row=9, column=8, columnspan=1, sticky='new')
+    return nome
 
 
 def botao_voltar(nome, parent, destino):
@@ -130,15 +131,24 @@ menu_jurisprudencia = None
 menu_jurisprudencia = menu_padrao(menu_jurisprudencia, janela_jurisprudencia)
 
 frame_painel = Frame()
-painel_home = Frame()
-painel_gerador = Frame()
-painel_gerador_documentos = Frame()
-painel_gerador_documentos_opcoes = Frame()
-painel_gerador_documentos_form = Frame()
-painel_acompanhamentoprocessual = Frame()
-painel_diariooficial = Frame()
-painel_jurimetria = Frame()
-painel_jurisprudencia = Frame()
+painel_home = None
+painel_home = painel_padrao(painel_home, janela_home)
+painel_gerador = None
+painel_gerador = painel_padrao(painel_gerador, janela_gerador)
+painel_gerador_documentos = None
+painel_gerador_documentos = painel_padrao(painel_gerador_documentos, janela_gerador_documentos)
+painel_gerador_documentos_opcoes = None
+painel_gerador_documentos_opcoes = painel_padrao(painel_gerador_documentos_opcoes, janela_gerador_documentos_opcoes)
+painel_gerador_documentos_form = None
+painel_gerador_documentos_form = painel_padrao(painel_gerador_documentos_form, janela_gerador_documentos_form)
+painel_acompanhamentoprocessual = None
+painel_acompanhamentoprocessual = painel_padrao(painel_acompanhamentoprocessual, janela_acompanhamentoprocessual)
+painel_diariooficial = None
+painel_diariooficial = painel_padrao(painel_diariooficial, janela_diariooficial)
+painel_jurimetria = None
+painel_jurimetria = painel_padrao(painel_jurimetria, janela_jurimetria)
+painel_jurisprudencia = None
+painel_jurisprudencia = painel_padrao(painel_jurisprudencia, janela_jurisprudencia)
 
 
 # =========================== Configuração painéis
@@ -146,46 +156,51 @@ painel_jurisprudencia = Frame()
 
 
 # ========================== Criando botões das funções
-botao_proximo_gerador = ''
-botao_proximo_gerador_documentos = ''
-botao_proximo_gerador_documentos_opcoes = ''
-botao_voltar_gerador_documentos = ''
-botao_voltar_gerador_documentos_opcoes = ''
-botao_voltar_gerador_documentos_form = ''
+botao_proximo_gerador = None
+botao_proximo_gerador = botao_proximo(botao_proximo_gerador, painel_gerador, janela_gerador_documentos)
+botao_proximo_gerador_documentos = None
+botao_proximo_gerador_documentos = botao_proximo(botao_proximo_gerador_documentos, painel_gerador_documentos, janela_gerador_documentos_opcoes)
+botao_proximo_gerador_documentos_opcoes = None
+botao_proximo_gerador_documentos_opcoes = botao_proximo(botao_proximo_gerador_documentos_opcoes, painel_gerador_documentos_opcoes, janela_gerador_documentos_form)
+botao_voltar_gerador_documentos = None
+botao_voltar_gerador_documentos_opcoes = None
+botao_voltar_gerador_documentos_form = None
 
 # ========================== Home
 titulo_padrao(titulo_home, janela_home, 'início')
 menu_home
 botoes_menu(menu_home)
-painel_padrao(painel_home, janela_home)
+painel_home
 
 # ========================== Gerador
 titulo_padrao(titulo_gerador, janela_gerador, 'gerador')
 menu_gerador
 botoes_menu(menu_gerador)
-painel_padrao(painel_gerador, janela_gerador)
+painel_gerador
+botao_proximo_gerador
 
 # ========================== Gerador-documentos
 titulo_padrao(titulo_gerador_documentos,
               janela_gerador_documentos, 'Escolha o(s) documento(s)')
 menu_gerador_documentos
 botoes_menu(menu_gerador_documentos)
-painel_padrao(painel_gerador_documentos, janela_gerador_documentos)
+painel_gerador_documentos
+botao_proximo_gerador_documentos
 
 # ========================== Gerador-documentos-opções
 titulo_padrao(titulo_gerador_documentos_opcoes,
               janela_gerador_documentos_opcoes, 'Opções')
 menu_gerador_documentos_opcoes
 botoes_menu(menu_gerador_documentos_opcoes)
-painel_padrao(painel_gerador_documentos_opcoes,
-              janela_gerador_documentos_opcoes)
+painel_gerador_documentos_opcoes
+botao_proximo_gerador_documentos_opcoes
 
 # ========================== Gerador-documentos-formulário
 titulo_padrao(titulo_gerador_documentos_form,
               janela_gerador_documentos_form, 'Preencha o formulário abaixo')
 menu_gerador_documentos_form
 botoes_menu(menu_gerador_documentos_form)
-painel_padrao(painel_gerador_documentos_form, janela_gerador_documentos_form)
+painel_gerador_documentos_form
 
 # ========================== Acompanhamento Processual
 titulo_padrao(titulo_acompanhamentoprocessual,
