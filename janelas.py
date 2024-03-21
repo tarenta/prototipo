@@ -64,7 +64,7 @@ def botao_proximo(nome, parent, destino):
 
 def botao_voltar(nome, parent, destino):
     nome = Button(parent, text='Voltar', command=lambda: show_frame(destino))
-    nome.grid(row=10, column=0, sticky='w')
+    nome.grid(row=9, column=1, sticky='new')
 
 
 janela = Tk()
@@ -163,8 +163,11 @@ botao_proximo_gerador_documentos = botao_proximo(botao_proximo_gerador_documento
 botao_proximo_gerador_documentos_opcoes = None
 botao_proximo_gerador_documentos_opcoes = botao_proximo(botao_proximo_gerador_documentos_opcoes, painel_gerador_documentos_opcoes, janela_gerador_documentos_form)
 botao_voltar_gerador_documentos = None
+botao_voltar_gerador_documentos = botao_voltar(botao_voltar_gerador_documentos, painel_gerador_documentos, janela_gerador)
 botao_voltar_gerador_documentos_opcoes = None
+botao_voltar_gerador_documentos_opcoes = botao_voltar(botao_voltar_gerador_documentos_opcoes, painel_gerador_documentos_opcoes, janela_gerador_documentos)
 botao_voltar_gerador_documentos_form = None
+botao_voltar_gerador_documentos_form = botao_voltar(botao_voltar_gerador_documentos_form, painel_gerador_documentos_form, janela_gerador_documentos_opcoes)
 
 # ========================== Home
 titulo_padrao(titulo_home, janela_home, 'início')
@@ -186,6 +189,7 @@ menu_gerador_documentos
 botoes_menu(menu_gerador_documentos)
 painel_gerador_documentos
 botao_proximo_gerador_documentos
+botao_voltar_gerador_documentos
 
 # ========================== Gerador-documentos-opções
 titulo_padrao(titulo_gerador_documentos_opcoes,
@@ -194,6 +198,7 @@ menu_gerador_documentos_opcoes
 botoes_menu(menu_gerador_documentos_opcoes)
 painel_gerador_documentos_opcoes
 botao_proximo_gerador_documentos_opcoes
+botao_voltar_gerador_documentos_opcoes
 
 # ========================== Gerador-documentos-formulário
 titulo_padrao(titulo_gerador_documentos_form,
@@ -201,6 +206,7 @@ titulo_padrao(titulo_gerador_documentos_form,
 menu_gerador_documentos_form
 botoes_menu(menu_gerador_documentos_form)
 painel_gerador_documentos_form
+botao_voltar_gerador_documentos_form
 
 # ========================== Acompanhamento Processual
 titulo_padrao(titulo_acompanhamentoprocessual,
