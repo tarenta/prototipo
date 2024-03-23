@@ -85,7 +85,7 @@ def labelcombobox(labelNome, cboxNome, parent, labelTexto, cboxValues, nRow, nCo
                    padx=npadx, pady=npady, sticky='sw')
     cboxNome = ttk.Combobox(parent, values=cboxValues)
     cboxNome.grid(row=int(nRow + 1), column=int(nColumn),
-                   rowspan=int(cboxRowSpan), columnspan=int(cboxColumnSpan), padx=npadx, pady=npady, sticky='nsew')
+                  rowspan=int(cboxRowSpan), columnspan=int(cboxColumnSpan), padx=npadx, pady=npady, sticky='nsew')
 
 
 janela = Tk()
@@ -271,56 +271,157 @@ botoes_menu(menu_gerador_documentos_form)
 painel_gerador_documentos_form
 botao_voltar_gerador_documentos_form
 
-quadro_gerador_documentos_form = LabelFrame(
-    painel_gerador_documentos_form, text='Formulário')
-quadro_gerador_documentos_form.columnconfigure(
-    (1, 2, 3, 4, 5, 6, 7, 8, 9), weight=3, uniform='a')
-quadro_gerador_documentos_form.columnconfigure(
-    (0, 10), weight=1, uniform='a')
-quadro_gerador_documentos_form.rowconfigure(
-    (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29), weight=1, uniform='a')
-quadro_gerador_documentos_form.grid(
-    row=1, column=2, rowspan=16, columnspan=16, sticky='nsew')
+quadro_dados_cliente1 = LabelFrame(
+    painel_gerador_documentos_form, text='Dados do Declarante')
+quadro_dados_cliente1.columnconfigure(
+    (1, 2, 3, 4, 5), weight=3, uniform='a')
+quadro_dados_cliente1.columnconfigure(
+    (0, 6), weight=1, uniform='a')
+quadro_dados_cliente1.rowconfigure(
+    (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), weight=1, uniform='a')
+quadro_dados_cliente1.grid(
+    row=1, column=6, rowspan=8, columnspan=8, sticky='nsew')
 
 label_nome_cliente1 = None
 entry_nome_cliente1 = None
 labelentry_nome_cliente1 = labelentry(
-    label_nome_cliente1, entry_nome_cliente1, quadro_gerador_documentos_form, 'Nome completo', 0, 1, 1, 3, (0, 10), 0)
+    label_nome_cliente1, entry_nome_cliente1, quadro_dados_cliente1, 'Nome completo', 0, 1, 1, 3, (0, 10), 0)
 
 label_cpf_cliente1 = None
 entry_cpf_cliente1 = None
 labelentry_cpf_cliente1 = labelentry(
-    label_cpf_cliente1, entry_cpf_cliente1, quadro_gerador_documentos_form, 'CPF', 0, 4, 1, 1, (10, 10), 0)
+    label_cpf_cliente1, entry_cpf_cliente1, quadro_dados_cliente1, 'CPF', 0, 4, 1, 1, (10, 10), 0)
 
 label_rg_cliente1 = None
 entry_rg_cliente1 = None
 labelentry_rg_cliente1 = labelentry(
-    label_rg_cliente1, entry_rg_cliente1, quadro_gerador_documentos_form, 'RG', 0, 5, 1, 1, (10, 0), 0)
+    label_rg_cliente1, entry_rg_cliente1, quadro_dados_cliente1, 'RG', 0, 5, 1, 1, (10, 0), 0)
 
 label_email_cliente1 = None
 entry_email_cliente1 = None
 labelentry_email_cliente1 = labelentry(
-    label_email_cliente1, entry_email_cliente1, quadro_gerador_documentos_form, 'E-mail', 3, 1, 1, 2, (0, 10), 0)
+    label_email_cliente1, entry_email_cliente1, quadro_dados_cliente1, 'E-mail', 3, 1, 1, 2, (0, 10), 0)
 
 label_profissao_cliente1 = None
 entry_profissao_cliente1 = None
 labelentry_profissao_cliente1 = labelentry(
-    label_profissao_cliente1, entry_profissao_cliente1, quadro_gerador_documentos_form, 'Profissão', 3, 3, 1, 2, (10, 10), 0)
+    label_profissao_cliente1, entry_profissao_cliente1, quadro_dados_cliente1, 'Profissão', 3, 3, 1, 2, (10, 10), 0)
 
 label_estadocivil_cliente1 = None
 cbox_estadocivil_cliente1 = None
 labelCbox_estadocivil_cliente1 = labelcombobox(
-    label_estadocivil_cliente1, cbox_estadocivil_cliente1, quadro_gerador_documentos_form, 'Estado Civil', ['', 'Solteiro', 'Casado', 'Divorciado', 'Em união estável'], 3, 5, 1, 1, (10, 0), 0)
+    label_estadocivil_cliente1, cbox_estadocivil_cliente1, quadro_dados_cliente1, 'Estado Civil', ['', 'Solteiro', 'Casado', 'Divorciado', 'Em união estável'], 3, 5, 1, 1, (10, 0), 0)
 
 label_nacionalidade_cliente1 = None
 cbox_nacionalidade_cliente1 = None
 labelCbox_nacionalidade_cliente1 = labelcombobox(
-    label_nacionalidade_cliente1, cbox_nacionalidade_cliente1, quadro_gerador_documentos_form, 'Nacionalidade', ['', 'Brasileiro', 'Estrangeiro'], 6, 1, 1, 1, (0, 10), 0)
+    label_nacionalidade_cliente1, cbox_nacionalidade_cliente1, quadro_dados_cliente1, 'Nacionalidade', ['', 'Brasileiro', 'Estrangeiro'], 6, 1, 1, 1, (0, 10), 0)
 
 label_sexo_cliente1 = None
 cbox_sexo_cliente1 = None
 labelCbox_sexo_cliente1 = labelcombobox(
-    label_sexo_cliente1, cbox_sexo_cliente1, quadro_gerador_documentos_form, 'Sexo', ['', 'Masculino', 'Feminino', 'Outro', 'prefiro não responder'], 6, 2, 1, 1, (10, 10), 0)
+    label_sexo_cliente1, cbox_sexo_cliente1, quadro_dados_cliente1, 'Sexo', ['', 'Masculino', 'Feminino', 'Outro', 'prefiro não responder'], 6, 2, 1, 1, (10, 10), 0)
+
+quadro_endereco_cliente1 = LabelFrame(
+    quadro_dados_cliente1, text='Endereço do declarante')
+quadro_endereco_cliente1.columnconfigure(
+    (0, 1, 2, 3, 4, 5), weight=1, uniform='a')
+quadro_endereco_cliente1.rowconfigure((0, 1, 2, 3, 4), weight=2, uniform='a')
+quadro_endereco_cliente1.rowconfigure(5, weight=1, uniform='a')
+quadro_endereco_cliente1.grid(
+    row=9, column=1, rowspan=7, columnspan=5, sticky='nsew')
+
+label_tipoEndereço_cliente1 = None
+cbox_tipoEndereço_cliente1 = None
+labelCbox_tipoEndereço_cliente1 = labelcombobox(
+    label_tipoEndereço_cliente1, cbox_tipoEndereço_cliente1, quadro_endereco_cliente1, 'Tipo', ['', 'Rua', 'Avenida', 'Estrada', 'Alameda', 'Avenida', 'Praça', 'Largo', 'Travessa'], 0, 0, 1, 1, (10, 10), 0)
+
+label_logradouroEndereco_cliente1 = None
+entry_logradouroEndereco_cliente1 = None
+labelentry_logradouroEndereco_cliente1 = labelentry(
+    label_logradouroEndereco_cliente1, entry_logradouroEndereco_cliente1, quadro_endereco_cliente1, 'Logradouro', 0, 1, 1, 4, (10, 10), 0)
+
+label_numeroEndereco_cliente1 = None
+entry_numeroEndereco_cliente1 = None
+labelentry_numeroEndereco_cliente1 = labelentry(
+    label_numeroEndereco_cliente1, entry_numeroEndereco_cliente1, quadro_endereco_cliente1, 'Número', 0, 5, 1, 1, (10, 10), 0)
+
+label_complementoEndereco_cliente1 = None
+entry_complementoEndereco_cliente1 = None
+labelentry_complementoEndereco_cliente1 = labelentry(
+    label_complementoEndereco_cliente1, entry_complementoEndereco_cliente1, quadro_endereco_cliente1, 'Complemento', 3, 0, 1, 1, (10, 10), 0)
+
+label_bairroEndereco_cliente1 = None
+entry_bairroEndereco_cliente1 = None
+labelentry_bairroEndereco_cliente1 = labelentry(
+    label_bairroEndereco_cliente1, entry_bairroEndereco_cliente1, quadro_endereco_cliente1, 'Bairro', 3, 1, 1, 2, (10, 10), 0)
+
+label_cidadeEndereco_cliente1 = None
+entry_cidadeEndereco_cliente1 = None
+labelentry_cidadeEndereco_cliente1 = labelentry(
+    label_cidadeEndereco_cliente1, entry_cidadeEndereco_cliente1, quadro_endereco_cliente1, 'Cidade', 3, 3, 1, 1, (10, 10), 0)
+
+label_estadoEndereço_cliente1 = None
+cbox_estadoEndereço_cliente1 = None
+labelCbox_estadoEndereço_cliente1 = labelcombobox(
+    label_estadoEndereço_cliente1, cbox_estadoEndereço_cliente1, quadro_endereco_cliente1, 'Estado', [" ", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"],  3, 4, 1, 1, (10, 10), 0)
+
+label_cepEndereco_cliente1 = None
+entry_cepEndereco_cliente1 = None
+labelentry_cepEndereco_cliente1 = labelentry(
+    label_cepEndereco_cliente1, entry_cepEndereco_cliente1, quadro_endereco_cliente1, 'CEP', 3, 5, 1, 1, (10, 10), 0)
+
+quadro_dados_terceiro1 = LabelFrame(
+    painel_gerador_documentos_form, text='Dados do Declarado')
+quadro_dados_terceiro1.columnconfigure(
+    (1, 2, 3, 4, 5), weight=3, uniform='a')
+quadro_dados_terceiro1.columnconfigure(
+    (0, 6), weight=1, uniform='a')
+quadro_dados_terceiro1.rowconfigure(
+    (0, 1, 2, 3, 4, 5, 6, 7, 8), weight=1, uniform='a')
+quadro_dados_terceiro1.grid(
+    row=10, column=6, rowspan=6, columnspan=8, sticky='nsew')
+
+label_nome_terceiro1 = None
+entry_nome_terceiro1 = None
+labelentry_nome_terceiro1 = labelentry(
+    label_nome_terceiro1, entry_nome_terceiro1, quadro_dados_terceiro1, 'Nome completo', 0, 1, 1, 3, (0, 10), 0)
+
+label_cpf_terceiro1 = None
+entry_cpf_terceiro1 = None
+labelentry_cpf_terceiro1 = labelentry(
+    label_cpf_terceiro1, entry_cpf_terceiro1, quadro_dados_terceiro1, 'CPF', 0, 4, 1, 1, (10, 10), 0)
+
+label_rg_terceiro1 = None
+entry_rg_terceiro1 = None
+labelentry_rg_terceiro1 = labelentry(
+    label_rg_terceiro1, entry_rg_terceiro1, quadro_dados_terceiro1, 'RG', 0, 5, 1, 1, (10, 0), 0)
+
+label_email_terceiro1 = None
+entry_email_terceiro1 = None
+labelentry_email_terceiro1 = labelentry(
+    label_email_terceiro1, entry_email_terceiro1, quadro_dados_terceiro1, 'E-mail', 3, 1, 1, 2, (0, 10), 0)
+
+label_profissao_terceiro1 = None
+entry_profissao_terceiro1 = None
+labelentry_profissao_terceiro1 = labelentry(
+    label_profissao_terceiro1, entry_profissao_terceiro1, quadro_dados_terceiro1, 'Profissão', 3, 3, 1, 2, (10, 10), 0)
+
+label_estadocivil_terceiro1 = None
+cbox_estadocivil_terceiro1 = None
+labelCbox_estadocivil_terceiro1 = labelcombobox(
+    label_estadocivil_terceiro1, cbox_estadocivil_terceiro1, quadro_dados_terceiro1, 'Estado Civil', ['', 'Solteiro', 'Casado', 'Divorciado', 'Em união estável'], 3, 5, 1, 1, (10, 0), 0)
+
+label_nacionalidade_terceiro1 = None
+cbox_nacionalidade_terceiro1 = None
+labelCbox_nacionalidade_terceiro1 = labelcombobox(
+    label_nacionalidade_terceiro1, cbox_nacionalidade_terceiro1, quadro_dados_terceiro1, 'Nacionalidade', ['', 'Brasileiro', 'Estrangeiro'], 6, 1, 1, 1, (0, 10), 0)
+
+label_sexo_terceiro1 = None
+cbox_sexo_terceiro1 = None
+labelCbox_sexo_terceiro1 = labelcombobox(
+    label_sexo_terceiro1, cbox_sexo_terceiro1, quadro_dados_terceiro1, 'Sexo', ['', 'Masculino', 'Feminino', 'Outro', 'prefiro não responder'], 6, 2, 1, 1, (10, 10), 0)
+
 
 # ========================== Acompanhamento Processual
 titulo_padrao(titulo_acompanhamentoprocessual,
@@ -353,4 +454,3 @@ painel_padrao(painel_jurisprudencia, janela_jurisprudencia)
 show_frame(janela_home)
 
 janela.mainloop()
-
