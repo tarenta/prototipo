@@ -278,7 +278,7 @@ quadro_dados_cliente1.columnconfigure(
 quadro_dados_cliente1.columnconfigure(
     (0, 6), weight=1, uniform='a')
 quadro_dados_cliente1.rowconfigure(
-    (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16), weight=1, uniform='a')
+    (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15), weight=1, uniform='a')
 quadro_dados_cliente1.grid(
     row=1, column=6, rowspan=8, columnspan=8, sticky='nsew')
 
@@ -329,7 +329,7 @@ quadro_endereco_cliente1.columnconfigure(
 quadro_endereco_cliente1.rowconfigure((0, 1, 2, 3, 4), weight=2, uniform='a')
 quadro_endereco_cliente1.rowconfigure(5, weight=1, uniform='a')
 quadro_endereco_cliente1.grid(
-    row=9, column=1, rowspan=7, columnspan=5, sticky='nsew')
+    row=9, column=1, rowspan=6, columnspan=5, sticky='nsew')
 
 label_tipoEndereço_cliente1 = None
 cbox_tipoEndereço_cliente1 = None
@@ -421,6 +421,9 @@ label_sexo_terceiro1 = None
 cbox_sexo_terceiro1 = None
 labelCbox_sexo_terceiro1 = labelcombobox(
     label_sexo_terceiro1, cbox_sexo_terceiro1, quadro_dados_terceiro1, 'Sexo', ['', 'Masculino', 'Feminino', 'Outro', 'prefiro não responder'], 6, 2, 1, 1, (10, 10), 0)
+
+botao_gerar = Button(painel_gerador_documentos_form, text='Criar Documento')
+botao_gerar.grid(row=17, column=9, columnspan=2, sticky='nsew')
 
 
 # ========================== Acompanhamento Processual
