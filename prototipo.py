@@ -11,7 +11,7 @@ locale.setlocale(locale.LC_ALL, 'pt_BR.utf8')
 hoje = datetime.now().strftime("%d de %B de %Y")
 
 
-nome_cliente1 = "Julia"
+nome_cliente1 = "Marcia"
 sexo_cliente1 = "Feminino"
 nacionalidade_cliente1 = "brasileira"
 estadocivil_cliente1 = "solteira"
@@ -98,7 +98,7 @@ for table in documento.tables:
 for p in documento.paragraphs:
     for run in p.runs:
         print(run.text)
-        print(run.id)
+        #print(run.id)
 
 
 documento.save("resultado.docx") #Quando esta função estiver pronta, alterar o nome e local de salvamento do documento gerado para uma variável. Assim, cada documento gerado deverá ser salvo com o caminho e nome correspondente.
