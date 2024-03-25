@@ -1,13 +1,122 @@
 from tkinter import *
 from tkinter import ttk
+from docx import *
+import os
+from datetime import datetime
+import locale
+    
+tomfundo1 = '#161B26'  # azul escuro
+tomfundo2 = '#3F3831'  # Marrom escuro
+tomfundo3 = '#897B6B'  # Marrom claro
+tomfundo4 = '#BCAE98'  # Bege escuro
+tomfundo5 = '#D7CBB9'  # Bege claro
+tomclaro1 = '#686868'  # Cinza escuro
+tomclaro2 = '#BFBFC1'  # Cinza claro
+tomclaro3 = '#F5F5F5'  # Branco
+destaque1 = '#317888'  # Azul
+destaque2 = '#C78C00'  # Dourado
 
+def geradoc():
+    modelo_documento = 'declaração de hipossuficiência' #Aqui a variável deve receber o input da escolha do usuário sobre qual documento pretende gerar (essa linha pode nem ser necessária, podendo a variável correspondente ao inpu ficar diretamente na linha abaixo)
+
+    documento = Document(f"Modelos de documentos\{modelo_documento}.docx")
+
+    locale.setlocale(locale.LC_ALL, 'pt_BR.utf8')
+    hoje = datetime.now().strftime("%d de %B de %Y")
+    nome_cliente1 = entry_nome_cliente1.get()
+    print (nome_cliente1)
+    sexo_cliente1 = cbox_sexo_cliente1.get()
+    nacionalidade_cliente1 = cbox_nacionalidade_cliente1.get()
+    estadocivil_cliente1 = cbox_estadocivil_cliente1.get()
+    profissao_cliente1 = entry_profissao_cliente1.get()
+    cpf_cliente1 = str(entry_cpf_cliente1.get())
+    endereco_cliente1 = f"{cbox_tipoEndereço_cliente1.get()} {entry_logradouroEndereco_cliente1.get()}, {entry_numeroEndereco_cliente1.get()}, {entry_complementoEndereco_cliente1.get()}, {entry_bairroEndereco_cliente1.get()}, {entry_cidadeEndereco_cliente1.get()} - {cbox_estadoEndereço_cliente1.get()}, CEP: {entry_cepEndereco_cliente1.get()}"
+    nome_advogado1 = "Wallace Tarenta de Mendonça"
+    sexo_advogado1 = "Masculino"
+    nacionalidade_advogado1 = "Brasileiro"
+    estadocivil_advogado1 = "solteiro"
+    oab_advogado1 = str("248.898")
+    email_advogado1 = "wallace@tarenta.com.br"
+    endereco_advogado1 = "Rua Santo Irineu, 211, Campo Grande, Rio de Janeiro - RJ, CEP 23082-470"
+    nome_terceiro1 = entry_nome_terceiro1.get()
+    sexo_terceiro1 = cbox_sexo_terceiro1.get()
+    nacionalidade_terceiro1 = cbox_nacionalidade_terceiro1.get()
+    estadocivil_terceiro1 = cbox_estadocivil_terceiro1.get()
+    profissao_terceiro1 = entry_profissao_terceiro1.get()
+    cpf_terceiro1 = str(entry_cpf_terceiro1.get())
+    endereco_terceiro1 = "Rua do Igarapé, 1.060, Vale do Ambi, Duque de Caxias - RJ, CEP 56847-885"
+    datahoje = hoje.lower()
+
+     #Eu sei que tem um jeito melhor de fazer isso (até porque preciso lidar com os artigos no plural e outras flexões, como do, da, dos, das etc.)
+    if sexo_cliente1 == "Masculino":
+        artigo_cliente1 = "o"
+    else: artigo_cliente1 = "a"
+
+    if sexo_advogado1 == "Masculino":
+        artigo_advogado1 = "o"
+    else: artigo_advogado1 = "a"
+
+    if sexo_terceiro1 == "Masculino":
+        artigo_terceiro1 = "o"
+    else: artigo_terceiro1 = "a"
+
+    referencias = {
+        "#nome_cliente1": nome_cliente1,
+        "#sexo_cliente1": sexo_cliente1,
+        "#nacionalidade_cliente1": nacionalidade_cliente1,
+        "#estadocivil_cliente1": estadocivil_cliente1,
+        "#profissão_cliente1": profissao_cliente1,
+        "#cpf_cliente1": cpf_cliente1,
+        "#endereco_cliente1": endereco_cliente1,
+        "#artigo_cliente1": artigo_cliente1,
+        "#nome_advogado1": nome_advogado1,
+        "#sexo_advogado1": sexo_advogado1,
+        "#nacionalidade_advogado1": nacionalidade_advogado1,
+        "#estadocivil_advogado1": estadocivil_advogado1,
+        "#oab_advogado1": oab_advogado1,
+        "#email_advogado1": email_advogado1,
+        "#endereco_advogado1": endereco_advogado1,
+        "#artigo_advogado1": artigo_advogado1,
+        "#nome_terceiro1": nome_terceiro1,
+        "#genero_terceiro1": sexo_terceiro1,
+        "#nacionalidade_terceiro1": nacionalidade_terceiro1,
+        "#estadocivil_terceiro1": estadocivil_terceiro1,
+        "#profissão_terceiro1": profissao_terceiro1,
+        "#cpf_terceiro1": cpf_terceiro1,
+        "#endereco_terceiro1": endereco_terceiro1,
+        "#artigo_terceiro1": artigo_terceiro1,
+        "#datahoje": datahoje
+    }
+
+    for paragrafo in documento.paragraphs:
+        runs_copy = paragrafo.runs.copy()
+        for run in runs_copy:
+            for chave in referencias:
+                if chave in run.text:
+                    substituto = referencias[chave]
+                    run.text = run.text.replace(chave, str(substituto))
+
+    for table in documento.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                for paragrafo in cell.paragraphs:
+                    runs_copy = paragrafo.runs.copy()
+                    for run in runs_copy:
+                        for chave in referencias:
+                            if chave in run.text:
+                                substituto = referencias[chave]
+                                run.text = run.text.replace(chave, str(substituto))
+
+
+    documento.save("resultado.docx") 
+    os.startfile("resultado.docx")
 
 def show_frame(frame):
     frame.tkraise()
 
 
 def titulo_padrao(frame, parent, texto):
-    frame = Frame(parent, bg='red')
+    frame = Frame(parent, bg=tomclaro3)
     frame.rowconfigure(0, weight=1)
     frame.columnconfigure(0, weight=1)
     frame.grid(row=0, column=0, columnspan=2, sticky='nsew')
@@ -16,7 +125,7 @@ def titulo_padrao(frame, parent, texto):
 
 
 def menu_padrao(frame, parent):
-    frame = Frame(parent, bg='grey')
+    frame = Frame(parent, bg=tomfundo1)
     frame.columnconfigure(0, weight=1, uniform='a')
     frame.rowconfigure((0, 1, 2, 3, 4, 5, 6, 7, 8, 9), weight=1, uniform='a')
     frame.grid(row=1, column=0, sticky='nsew')
@@ -24,7 +133,7 @@ def menu_padrao(frame, parent):
 
 
 def painel_padrao(frame, parent):
-    frame = Frame(parent, bg='yellow')
+    frame = Frame(parent, bg=tomclaro1)
     frame.columnconfigure((0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
                           12, 13, 14, 15, 16, 17, 18, 19), weight=1, uniform='a')
     frame.rowconfigure((0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,
@@ -35,28 +144,28 @@ def painel_padrao(frame, parent):
 
 def botoes_menu(parent):
     botao_inicio = Button(
-        parent, text='Início', command=lambda: show_frame(janela_home))
-    botao_inicio.grid(row=2, column=0, sticky='nsew')
+        parent, background=destaque1, foreground=tomfundo1, activebackground=destaque2, activeforeground=tomfundo2, highlightthickness=2, highlightbackground='orange', highlightcolor='white', font=('Arial', 16, 'bold'), text='Início', command=lambda: show_frame(janela_home))
+    botao_inicio.grid(row=2, column=0, padx=(0, 10), pady=5, sticky='nsew')
 
     botao_gerador = Button(
-        parent, text='Gerador', command=lambda: show_frame(janela_gerador))
-    botao_gerador.grid(row=3, column=0, sticky='nsew')
+        parent, background=destaque1, foreground=tomfundo1, activebackground=destaque2, activeforeground=tomfundo2, highlightthickness=2, highlightbackground='orange', highlightcolor='white', font=('Arial', 16, 'bold'), text='Gerador', command=lambda: show_frame(janela_gerador))
+    botao_gerador.grid(row=3, column=0, padx=(0, 10), pady=5, sticky='nsew')
 
     botao_acompanhamentoprocessual = Button(
-        parent, text='Acompanhamento Processual', command=lambda: show_frame(janela_acompanhamentoprocessual))
-    botao_acompanhamentoprocessual.grid(row=4, column=0, sticky='nsew')
+        parent, background=destaque1, foreground=tomfundo1, activebackground=destaque2, activeforeground=tomfundo2, highlightthickness=2, highlightbackground='orange', highlightcolor='white', font=('Arial', 16, 'bold'), text='Acompanhamento Processual', command=lambda: show_frame(janela_acompanhamentoprocessual))
+    botao_acompanhamentoprocessual.grid(row=4, column=0, padx=(0, 10), pady=5, sticky='nsew')
 
     botao_diariooficial = Button(
-        parent, text='Diário Oficial', command=lambda: show_frame(janela_diariooficial))
-    botao_diariooficial.grid(row=5, column=0, sticky='nsew')
+        parent, background=destaque1, foreground=tomfundo1, activebackground=destaque2, activeforeground=tomfundo2, highlightthickness=2, highlightbackground='orange', highlightcolor='white', font=('Arial', 16, 'bold'), text='Diário Oficial', command=lambda: show_frame(janela_diariooficial))
+    botao_diariooficial.grid(row=5, column=0, padx=(0, 10), pady=5, sticky='nsew')
 
     botao_jurimetria = Button(
-        parent, text='Jurimetria', command=lambda: show_frame(janela_jurimetria))
-    botao_jurimetria.grid(row=6, column=0, sticky='nsew')
+        parent, background=destaque1, foreground=tomfundo1, activebackground=destaque2, activeforeground=tomfundo2, highlightthickness=2, highlightbackground='orange', highlightcolor='white', font=('Arial', 16, 'bold'), text='Jurimetria', command=lambda: show_frame(janela_jurimetria))
+    botao_jurimetria.grid(row=6, column=0, padx=(0, 10), pady=5, sticky='nsew')
 
     botao_jurisprudencia = Button(
-        parent, text='Jurisprudência', command=lambda: show_frame(janela_jurisprudencia))
-    botao_jurisprudencia.grid(row=7, column=0, sticky='nsew')
+        parent, background=destaque1, foreground=tomfundo1, activebackground=destaque2, activeforeground=tomfundo2, highlightthickness=2, highlightbackground='orange', highlightcolor='white', font=('Arial', 16, 'bold'), text='Jurisprudência', command=lambda: show_frame(janela_jurisprudencia))
+    botao_jurisprudencia.grid(row=7, column=0, padx=(0, 10), pady=5, sticky='nsew')
 
 
 def botao_proximo(nome, parent, destino):
@@ -70,22 +179,24 @@ def botao_voltar(nome, parent, destino):
     nome.grid(row=18, column=2, sticky='new')
 
 
-def labelentry(labelNome, entryNome, parent, labelTexto, nRow, nColumn, entryRowSpan, entryColumnSpan, npadx, npady):
+def labelentry(parent, labelTexto, nRow, nColumn, entryRowSpan, entryColumnSpan, npadx, npady):
     labelNome = Label(parent, text=str(labelTexto))
     labelNome.grid(row=int(nRow), column=int(nColumn),
                    padx=npadx, pady=npady, sticky='sw')
     entryNome = Entry(parent)
     entryNome.grid(row=int(nRow + 1), column=int(nColumn),
                    rowspan=int(entryRowSpan), columnspan=int(entryColumnSpan), padx=npadx, pady=npady, sticky='nsew')
+    return entryNome
 
 
-def labelcombobox(labelNome, cboxNome, parent, labelTexto, cboxValues, nRow, nColumn, cboxRowSpan, cboxColumnSpan, npadx, npady):
+def labelcombobox(parent, labelTexto, cboxValues, nRow, nColumn, cboxRowSpan, cboxColumnSpan, npadx, npady):
     labelNome = Label(parent, text=str(labelTexto))
     labelNome.grid(row=int(nRow), column=int(nColumn),
                    padx=npadx, pady=npady, sticky='sw')
     cboxNome = ttk.Combobox(parent, values=cboxValues)
     cboxNome.grid(row=int(nRow + 1), column=int(nColumn),
                   rowspan=int(cboxRowSpan), columnspan=int(cboxColumnSpan), padx=npadx, pady=npady, sticky='nsew')
+    return cboxNome
 
 
 janela = Tk()
@@ -272,7 +383,7 @@ painel_gerador_documentos_form
 botao_voltar_gerador_documentos_form
 
 quadro_dados_cliente1 = LabelFrame(
-    painel_gerador_documentos_form, text='Dados do Declarante')
+    painel_gerador_documentos_form, text='Dados do Declarante', bg=tomclaro2)
 quadro_dados_cliente1.columnconfigure(
     (1, 2, 3, 4, 5), weight=3, uniform='a')
 quadro_dados_cliente1.columnconfigure(
@@ -282,45 +393,14 @@ quadro_dados_cliente1.rowconfigure(
 quadro_dados_cliente1.grid(
     row=1, column=6, rowspan=8, columnspan=8, sticky='nsew')
 
-label_nome_cliente1 = None
-entry_nome_cliente1 = None
-labelentry_nome_cliente1 = labelentry(
-    label_nome_cliente1, entry_nome_cliente1, quadro_dados_cliente1, 'Nome completo', 0, 1, 1, 3, (0, 10), 0)
-
-label_cpf_cliente1 = None
-entry_cpf_cliente1 = None
-labelentry_cpf_cliente1 = labelentry(
-    label_cpf_cliente1, entry_cpf_cliente1, quadro_dados_cliente1, 'CPF', 0, 4, 1, 1, (10, 10), 0)
-
-label_rg_cliente1 = None
-entry_rg_cliente1 = None
-labelentry_rg_cliente1 = labelentry(
-    label_rg_cliente1, entry_rg_cliente1, quadro_dados_cliente1, 'RG', 0, 5, 1, 1, (10, 0), 0)
-
-label_email_cliente1 = None
-entry_email_cliente1 = None
-labelentry_email_cliente1 = labelentry(
-    label_email_cliente1, entry_email_cliente1, quadro_dados_cliente1, 'E-mail', 3, 1, 1, 2, (0, 10), 0)
-
-label_profissao_cliente1 = None
-entry_profissao_cliente1 = None
-labelentry_profissao_cliente1 = labelentry(
-    label_profissao_cliente1, entry_profissao_cliente1, quadro_dados_cliente1, 'Profissão', 3, 3, 1, 2, (10, 10), 0)
-
-label_estadocivil_cliente1 = None
-cbox_estadocivil_cliente1 = None
-labelCbox_estadocivil_cliente1 = labelcombobox(
-    label_estadocivil_cliente1, cbox_estadocivil_cliente1, quadro_dados_cliente1, 'Estado Civil', ['', 'Solteiro', 'Casado', 'Divorciado', 'Em união estável'], 3, 5, 1, 1, (10, 0), 0)
-
-label_nacionalidade_cliente1 = None
-cbox_nacionalidade_cliente1 = None
-labelCbox_nacionalidade_cliente1 = labelcombobox(
-    label_nacionalidade_cliente1, cbox_nacionalidade_cliente1, quadro_dados_cliente1, 'Nacionalidade', ['', 'Brasileiro', 'Estrangeiro'], 6, 1, 1, 1, (0, 10), 0)
-
-label_sexo_cliente1 = None
-cbox_sexo_cliente1 = None
-labelCbox_sexo_cliente1 = labelcombobox(
-    label_sexo_cliente1, cbox_sexo_cliente1, quadro_dados_cliente1, 'Sexo', ['', 'Masculino', 'Feminino', 'Outro', 'prefiro não responder'], 6, 2, 1, 1, (10, 10), 0)
+entry_nome_cliente1 = labelentry(quadro_dados_cliente1, 'Nome completo', 0, 1, 1, 3, (0, 10), 0)
+entry_cpf_cliente1 = labelentry(quadro_dados_cliente1, 'CPF', 0, 4, 1, 1, (10, 10), 0)
+entry_rg_cliente1 = labelentry(quadro_dados_cliente1, 'RG', 0, 5, 1, 1, (10, 0), 0)
+entry_email_cliente1 = labelentry(quadro_dados_cliente1, 'E-mail', 3, 1, 1, 2, (0, 10), 0)
+entry_profissao_cliente1 = labelentry(quadro_dados_cliente1, 'Profissão', 3, 3, 1, 2, (10, 10), 0)
+cbox_estadocivil_cliente1 = labelcombobox(quadro_dados_cliente1, 'Estado Civil', ['', 'Solteiro', 'Casado', 'Divorciado', 'Em união estável'], 3, 5, 1, 1, (10, 0), 0)
+cbox_nacionalidade_cliente1 = labelcombobox(quadro_dados_cliente1, 'Nacionalidade', ['', 'Brasileiro', 'Estrangeiro'], 6, 1, 1, 1, (0, 10), 0)
+cbox_sexo_cliente1 = labelcombobox(quadro_dados_cliente1, 'Sexo', ['', 'Masculino', 'Feminino', 'Outro', 'prefiro não responder'], 6, 2, 1, 1, (10, 10), 0)
 
 quadro_endereco_cliente1 = LabelFrame(
     quadro_dados_cliente1, text='Endereço do declarante')
@@ -331,45 +411,14 @@ quadro_endereco_cliente1.rowconfigure(5, weight=1, uniform='a')
 quadro_endereco_cliente1.grid(
     row=9, column=1, rowspan=6, columnspan=5, sticky='nsew')
 
-label_tipoEndereço_cliente1 = None
-cbox_tipoEndereço_cliente1 = None
-labelCbox_tipoEndereço_cliente1 = labelcombobox(
-    label_tipoEndereço_cliente1, cbox_tipoEndereço_cliente1, quadro_endereco_cliente1, 'Tipo', ['', 'Rua', 'Avenida', 'Estrada', 'Alameda', 'Avenida', 'Praça', 'Largo', 'Travessa'], 0, 0, 1, 1, (10, 10), 0)
-
-label_logradouroEndereco_cliente1 = None
-entry_logradouroEndereco_cliente1 = None
-labelentry_logradouroEndereco_cliente1 = labelentry(
-    label_logradouroEndereco_cliente1, entry_logradouroEndereco_cliente1, quadro_endereco_cliente1, 'Logradouro', 0, 1, 1, 4, (10, 10), 0)
-
-label_numeroEndereco_cliente1 = None
-entry_numeroEndereco_cliente1 = None
-labelentry_numeroEndereco_cliente1 = labelentry(
-    label_numeroEndereco_cliente1, entry_numeroEndereco_cliente1, quadro_endereco_cliente1, 'Número', 0, 5, 1, 1, (10, 10), 0)
-
-label_complementoEndereco_cliente1 = None
-entry_complementoEndereco_cliente1 = None
-labelentry_complementoEndereco_cliente1 = labelentry(
-    label_complementoEndereco_cliente1, entry_complementoEndereco_cliente1, quadro_endereco_cliente1, 'Complemento', 3, 0, 1, 1, (10, 10), 0)
-
-label_bairroEndereco_cliente1 = None
-entry_bairroEndereco_cliente1 = None
-labelentry_bairroEndereco_cliente1 = labelentry(
-    label_bairroEndereco_cliente1, entry_bairroEndereco_cliente1, quadro_endereco_cliente1, 'Bairro', 3, 1, 1, 2, (10, 10), 0)
-
-label_cidadeEndereco_cliente1 = None
-entry_cidadeEndereco_cliente1 = None
-labelentry_cidadeEndereco_cliente1 = labelentry(
-    label_cidadeEndereco_cliente1, entry_cidadeEndereco_cliente1, quadro_endereco_cliente1, 'Cidade', 3, 3, 1, 1, (10, 10), 0)
-
-label_estadoEndereço_cliente1 = None
-cbox_estadoEndereço_cliente1 = None
-labelCbox_estadoEndereço_cliente1 = labelcombobox(
-    label_estadoEndereço_cliente1, cbox_estadoEndereço_cliente1, quadro_endereco_cliente1, 'Estado', [" ", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"],  3, 4, 1, 1, (10, 10), 0)
-
-label_cepEndereco_cliente1 = None
-entry_cepEndereco_cliente1 = None
-labelentry_cepEndereco_cliente1 = labelentry(
-    label_cepEndereco_cliente1, entry_cepEndereco_cliente1, quadro_endereco_cliente1, 'CEP', 3, 5, 1, 1, (10, 10), 0)
+cbox_tipoEndereço_cliente1 = labelcombobox(quadro_endereco_cliente1, 'Tipo', ['', 'Rua', 'Avenida', 'Estrada', 'Alameda', 'Avenida', 'Praça', 'Largo', 'Travessa'], 0, 0, 1, 1, (10, 10), 0)
+entry_logradouroEndereco_cliente1 = labelentry(quadro_endereco_cliente1, 'Logradouro', 0, 1, 1, 4, (10, 10), 0)
+entry_numeroEndereco_cliente1 = labelentry(quadro_endereco_cliente1, 'Número', 0, 5, 1, 1, (10, 10), 0)
+entry_complementoEndereco_cliente1 = labelentry(quadro_endereco_cliente1, 'Complemento', 3, 0, 1, 1, (10, 10), 0)
+entry_bairroEndereco_cliente1 = labelentry(quadro_endereco_cliente1, 'Bairro', 3, 1, 1, 2, (10, 10), 0)
+entry_cidadeEndereco_cliente1 = labelentry(quadro_endereco_cliente1, 'Cidade', 3, 3, 1, 1, (10, 10), 0)
+cbox_estadoEndereço_cliente1 = labelcombobox(quadro_endereco_cliente1, 'Estado', [" ", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"],  3, 4, 1, 1, (10, 10), 0)
+entry_cepEndereco_cliente1 = labelentry(quadro_endereco_cliente1, 'CEP', 3, 5, 1, 1, (10, 10), 0)
 
 quadro_dados_terceiro1 = LabelFrame(
     painel_gerador_documentos_form, text='Dados do Declarado')
@@ -382,49 +431,17 @@ quadro_dados_terceiro1.rowconfigure(
 quadro_dados_terceiro1.grid(
     row=10, column=6, rowspan=6, columnspan=8, sticky='nsew')
 
-label_nome_terceiro1 = None
-entry_nome_terceiro1 = None
-labelentry_nome_terceiro1 = labelentry(
-    label_nome_terceiro1, entry_nome_terceiro1, quadro_dados_terceiro1, 'Nome completo', 0, 1, 1, 3, (0, 10), 0)
+entry_nome_terceiro1 = labelentry(quadro_dados_terceiro1, 'Nome completo', 0, 1, 1, 3, (0, 10), 0)
+entry_cpf_terceiro1 = labelentry(quadro_dados_terceiro1, 'CPF', 0, 4, 1, 1, (10, 10), 0)
+entry_rg_terceiro1 = labelentry(quadro_dados_terceiro1, 'RG', 0, 5, 1, 1, (10, 0), 0)
+entry_email_terceiro1 = labelentry(quadro_dados_terceiro1, 'E-mail', 3, 1, 1, 2, (0, 10), 0)
+entry_profissao_terceiro1 = labelentry(quadro_dados_terceiro1, 'Profissão', 3, 3, 1, 2, (10, 10), 0)
+cbox_estadocivil_terceiro1 = labelcombobox(quadro_dados_terceiro1, 'Estado Civil', ['', 'Solteiro', 'Casado', 'Divorciado', 'Em união estável'], 3, 5, 1, 1, (10, 0), 0)
+cbox_nacionalidade_terceiro1 = labelcombobox(quadro_dados_terceiro1, 'Nacionalidade', ['', 'Brasileiro', 'Estrangeiro'], 6, 1, 1, 1, (0, 10), 0)
+cbox_sexo_terceiro1 = labelcombobox(quadro_dados_terceiro1, 'Sexo', ['', 'Masculino', 'Feminino', 'Outro', 'prefiro não responder'], 6, 2, 1, 1, (10, 10), 0)
 
-label_cpf_terceiro1 = None
-entry_cpf_terceiro1 = None
-labelentry_cpf_terceiro1 = labelentry(
-    label_cpf_terceiro1, entry_cpf_terceiro1, quadro_dados_terceiro1, 'CPF', 0, 4, 1, 1, (10, 10), 0)
-
-label_rg_terceiro1 = None
-entry_rg_terceiro1 = None
-labelentry_rg_terceiro1 = labelentry(
-    label_rg_terceiro1, entry_rg_terceiro1, quadro_dados_terceiro1, 'RG', 0, 5, 1, 1, (10, 0), 0)
-
-label_email_terceiro1 = None
-entry_email_terceiro1 = None
-labelentry_email_terceiro1 = labelentry(
-    label_email_terceiro1, entry_email_terceiro1, quadro_dados_terceiro1, 'E-mail', 3, 1, 1, 2, (0, 10), 0)
-
-label_profissao_terceiro1 = None
-entry_profissao_terceiro1 = None
-labelentry_profissao_terceiro1 = labelentry(
-    label_profissao_terceiro1, entry_profissao_terceiro1, quadro_dados_terceiro1, 'Profissão', 3, 3, 1, 2, (10, 10), 0)
-
-label_estadocivil_terceiro1 = None
-cbox_estadocivil_terceiro1 = None
-labelCbox_estadocivil_terceiro1 = labelcombobox(
-    label_estadocivil_terceiro1, cbox_estadocivil_terceiro1, quadro_dados_terceiro1, 'Estado Civil', ['', 'Solteiro', 'Casado', 'Divorciado', 'Em união estável'], 3, 5, 1, 1, (10, 0), 0)
-
-label_nacionalidade_terceiro1 = None
-cbox_nacionalidade_terceiro1 = None
-labelCbox_nacionalidade_terceiro1 = labelcombobox(
-    label_nacionalidade_terceiro1, cbox_nacionalidade_terceiro1, quadro_dados_terceiro1, 'Nacionalidade', ['', 'Brasileiro', 'Estrangeiro'], 6, 1, 1, 1, (0, 10), 0)
-
-label_sexo_terceiro1 = None
-cbox_sexo_terceiro1 = None
-labelCbox_sexo_terceiro1 = labelcombobox(
-    label_sexo_terceiro1, cbox_sexo_terceiro1, quadro_dados_terceiro1, 'Sexo', ['', 'Masculino', 'Feminino', 'Outro', 'prefiro não responder'], 6, 2, 1, 1, (10, 10), 0)
-
-botao_gerar = Button(painel_gerador_documentos_form, text='Criar Documento')
+botao_gerar = Button(painel_gerador_documentos_form, text='Criar Documento', command=geradoc)
 botao_gerar.grid(row=17, column=9, columnspan=2, sticky='nsew')
-
 
 # ========================== Acompanhamento Processual
 titulo_padrao(titulo_acompanhamentoprocessual,
